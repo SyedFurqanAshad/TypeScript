@@ -1,6 +1,7 @@
 const express2 = require("express");
 const router2 = express2.Router();
 const axios2 = require("axios");
+import { Request, Response } from "express";
 
 interface postType {
   userId: number;
@@ -26,7 +27,7 @@ interface postWithCommentsType {
 
 router2.get(
   "/posts",
-  async (req: any, res: any): Promise<void> => {
+  async (req: Request, res: Response): Promise<void> => {
     const posts: { data: postType[] } = await axios2.get(
       "https://jsonplaceholder.typicode.com/posts"
     );
@@ -34,7 +35,7 @@ router2.get(
       "https://jsonplaceholder.typicode.com/comments"
     );
 
-    const user = parseInt(req.query.user);
+    const user: number = Number(req.query.user);
     const deleteUser: postType[] = posts.data.filter(del => del.userId != user);
 
     const postWithComments: postWithCommentsType[] = deleteUser.map(item => {
@@ -53,14 +54,20 @@ router2.get(
     const sortingByBody = (a: { body: string }, b: { body: string }) =>
       a.body.localeCompare(b.body);
 
-    if ((req.query.sort == 1 || req.query.sort == -1) && req.query.title) {
+    if (
+      (Number(req.query.sort) === 1 || Number(req.query.sort) === -1) &&
+      req.query.title
+    ) {
       postWithComments.sort(sortingByTitle);
-      req.query.sort == -1 ? postWithComments.reverse() : null;
+      Number(req.query.sort) === -1 ? postWithComments.reverse() : null;
     }
 
-    if ((req.query.sort == 1 || req.query.sort == -1) && req.query.body) {
+    if (
+      (Number(req.query.sort) === 1 || Number(req.query.sort) === -1) &&
+      req.query.body
+    ) {
       postWithComments.sort(sortingByBody);
-      req.query.sort == -1 ? postWithComments.reverse() : null;
+      Number(req.query.sort) === -1 ? postWithComments.reverse() : null;
     }
 
     res.send(postWithComments);

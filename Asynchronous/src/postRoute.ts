@@ -2,6 +2,8 @@ const express1 = require("express");
 const router = express1.Router();
 const axios = require("axios");
 
+import { Request, Response } from "express";
+
 interface postType {
   id: number;
   userId: number;
@@ -26,7 +28,7 @@ interface postWithCommentsType {
 
 router.get(
   "/postWithComments/async",
-  async (req: any, res: any): Promise<void> => {
+  async (req: Request, res: Response): Promise<void> => {
     const posts: { data: postType[] } = await axios.get(
       "https://jsonplaceholder.typicode.com/posts"
     );

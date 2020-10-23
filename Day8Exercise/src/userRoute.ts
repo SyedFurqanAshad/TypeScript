@@ -1,6 +1,7 @@
 const express1 = require("express");
 const router = express1.Router();
 const axios = require("axios");
+import { Request, Response } from "express";
 
 interface userType {
   id: number;
@@ -63,10 +64,11 @@ interface postWithCommentsType {
   body: string;
   comments: commentType[];
 }
+// const request = express1.Request
 
 router.get(
   "/users",
-  async (req: any, res: any): Promise<void> => {
+  async (req: Request, res: Response): Promise<void> => {
     const users: { data: userType[] } = await axios.get(
       "https://jsonplaceholder.typicode.com/users"
     );

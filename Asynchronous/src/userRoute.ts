@@ -1,6 +1,7 @@
 const express2 = require("express");
 const router2 = express2.Router();
 const axios2 = require("axios");
+import { Request, Response } from "express";
 
 interface userType {
   id: number;
@@ -61,13 +62,13 @@ interface userWithPostsType {
 
 router2.get(
   "/usersWithPosts/async",
-  async (req: any, res: any): Promise<void> => {
+  async (req: Request, res: Response): Promise<void> => {
     const users: { data: userType[] } = await axios2.get(
       "https://jsonplaceholder.typicode.com/users"
     );
     const userWithPosts: Promise<userWithPostsType>[] = users.data.map(
       async (user: userType) => {
-        const posts: { data: postType[] } = await axios2.get(
+        const posts: { data: postsType[] } = await axios2.get(
           `https://jsonplaceholder.typicode.com/users/${user.id}/posts`
         );
         return {

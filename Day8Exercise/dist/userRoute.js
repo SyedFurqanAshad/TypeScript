@@ -1,7 +1,9 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const express1 = require("express");
 const router = express1.Router();
 const axios = require("axios");
+// const request = express1.Request
 router.get("/users", async (req, res) => {
     const users = await axios.get("https://jsonplaceholder.typicode.com/users");
     const specificUser = users.data.filter(item => {

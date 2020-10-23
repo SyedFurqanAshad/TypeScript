@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const express1 = require("express");
 const router1 = express1.Router();
 const axios1 = require("axios");

@@ -1,6 +1,7 @@
 const express1 = require("express");
 const router = express1.Router();
 const axios = require("axios");
+import { Request, Response } from "express";
 
 interface userType {
   id: number;
@@ -26,7 +27,7 @@ interface userType {
   };
 }
 
-router.get("/", (req: any, res: any) => {
+router.get("/", (req: Request, res: Response) => {
   axios
     .get("https://jsonplaceholder.typicode.com/users")
     .then((response: { data: userType[] }) => {

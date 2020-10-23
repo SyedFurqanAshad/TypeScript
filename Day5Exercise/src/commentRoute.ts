@@ -1,6 +1,7 @@
 const express3 = require("express");
 const router3 = express3.Router();
 const axios3 = require("axios");
+import { Request, Response } from "express";
 
 interface commentType {
   postId: number;
@@ -9,7 +10,7 @@ interface commentType {
   email: string;
   body: string;
 }
-router3.get("/", (req: any, res: any) => {
+router3.get("/", (req: Request, res: Response) => {
   axios3
     .get("https://jsonplaceholder.typicode.com/comments")
     .then((response: { data: commentType[] }) => {

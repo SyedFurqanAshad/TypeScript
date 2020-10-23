@@ -1,33 +1,35 @@
 const express1 = require("express");
 const router1 = express1.Router();
 const axios1 = require("axios");
+import { Request, Response } from "express";
+
+interface postType {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+interface commentType {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+}
+interface postWithCommentsType {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+  comments: commentType[];
+}
 
 router1.get(
   "/postWithComments/sync",
-  async (req: any, res: any): Promise<void> => {
+  async (req: Request, res: Response): Promise<void> => {
     const { data: allPosts } = await axios1.get(
       `https://jsonplaceholder.typicode.com/posts`
     );
-    interface postType {
-      userId: number;
-      id: number;
-      title: string;
-      body: string;
-    }
-    interface commentType {
-      postId: number;
-      id: number;
-      name: string;
-      email: string;
-      body: string;
-    }
-    interface postWithCommentsType {
-      userId: number;
-      id: number;
-      title: string;
-      body: string;
-      comments: commentType[];
-    }
 
     const postWithComments: postWithCommentsType[] = [];
 
